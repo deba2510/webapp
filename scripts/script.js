@@ -46,8 +46,8 @@ function arrayListFunction(...arrayList){
     }));
 
     // DOCUMENT QUERY SELECTOR
-    document.querySelector(".example").addEventListener('click', function(event){
-        console.log(event.srcElement);
+    document.querySelector("#BSBHeader").addEventListener('click', function(event){
+        console.log(event.target);
     });
     
     // ARRAY DESTRUCTURING
@@ -124,3 +124,12 @@ const testObject = {
 
 testObject.printHello();
 testObject.printName();
+
+// Enhanced Object Literal (Computed property Name)
+const dynamicVar = "username";
+const sampleObject = {
+    [dynamicVar] : "Debangshu",
+    empNo : 60003354
+};
+console.log(sampleObject);
+
