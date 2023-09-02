@@ -190,8 +190,31 @@ console.log(colors.has('yellow'));
 for (const color of colors) {
     console.log(color);
 }
+colors.forEach(function(item){
+    console.log(item);
+});
+
 const colorsArray = [...colors];
 
 const numbers = [1, 2, 2, 3, 4, 4, 5];
 const uniqueNumbers = new Set(numbers);
 console.log(uniqueNumbers);
+
+
+// MAP DATASTRUCTURE (KEY VALUE PAIR)
+const mymap = new Map();
+mymap.set("name", "Sudipta");
+mymap.set("age",30);
+console.log(mymap.get("name"));
+console.log(mymap.has("yob"));
+// console.log(mymap);
+// mymap.delete("age");
+// console.log(mymap);
+mymap.set("address","bangalore");
+for (let [key,value] of mymap){
+    console.log(key + " : " + value);
+}
+
+mymap.forEach(function(value,key){
+    console.log(key + " : " + value);
+});
