@@ -57,10 +57,10 @@ function arrayListFunction(...arrayList){
     
     // OBJECT DESTRUCTURING
     const employeeDetails = {
-        name: "Debangshu",
-        employeeNo: "60003354",
+        name: "Howard",
+        employeeNo: "983738",
         department: "ISD",
-        phoneNo: 9804890013
+        phoneNo: 1287456387
     };
 
     const {department:empDepartment, employeeNo:empEmployeeNo, phoneNo:empPhone, name:empName} = employeeDetails;
@@ -128,8 +128,70 @@ testObject.printName();
 // Enhanced Object Literal (Computed property Name)
 const dynamicVar = "username";
 const sampleObject = {
-    [dynamicVar] : "Debangshu",
-    empNo : 60003354
+    [dynamicVar] : "David",
+    empNo : 8777
 };
 console.log(sampleObject);
 
+// OPTIONAL CHAINING
+const withAddFunction = {
+    description : "contains-addition-function",
+    add : function (a , b){
+        return (a + b);
+    }
+}
+
+const withNoAddFunction = {
+    description : "NO-addition-function"
+}
+
+console.log(withAddFunction.add?.(2,3));
+console.log(withNoAddFunction.add?.(2,3));
+
+const empOne = {
+    empNo : 1234,
+    name : "David",
+    yob : 1989,
+    spouse : {
+        name : "Angelina",
+        yob : 1991
+    }
+}
+
+const empTwo = {
+    empNo : 3476,
+    name : "Steve",
+    yob : 1988
+}
+
+const spouseDetails = function (emp){
+    if (emp.spouse?.yob != undefined){
+        console.log(emp.name + " is married to " + emp.spouse.name + " who is a " + (2023 - emp.spouse.yob) + "year old");
+    }
+    else{
+        console.log(emp.name + " is not married");
+    }
+}
+
+spouseDetails(empOne);
+spouseDetails(empTwo);
+
+
+// SET DATASTRUCTURE
+const colors = new Set();
+colors.add('red');
+colors.add('green');
+colors.add('blue');
+colors.delete('green');
+console.log(colors.size);
+console.log(colors.has('red')); 
+console.log(colors.has('yellow')); 
+
+for (const color of colors) {
+    console.log(color);
+}
+const colorsArray = [...colors];
+
+const numbers = [1, 2, 2, 3, 4, 4, 5];
+const uniqueNumbers = new Set(numbers);
+console.log(uniqueNumbers);
