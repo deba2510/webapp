@@ -218,3 +218,43 @@ for (let [key,value] of mymap){
 mymap.forEach(function(value,key){
     console.log(key + " : " + value);
 });
+
+
+// FUNCTION DEFAULT PARAMETER
+const calculateAge = function(yob){
+    return (2023 - yob);
+}
+const sampleDefParam = function(name="Guest",yob=2000, age=calculateAge){
+    console.log(name + " is " + age(yob) + " year old");
+}
+
+sampleDefParam("steve",1972);
+sampleDefParam();
+
+// Function pass by value (number, string) by reference (array, object)
+const stringPassByVal = function (strVar){
+    strVar = strVar + "world";
+}
+
+let strVar = "hello";
+stringPassByVal(strVar);
+console.log(strVar);
+
+
+const numberPassByVal = function (num){
+    num = 12;
+}
+let num = 10;
+numberPassByVal(num);
+console.log(num);
+
+const arrayPassByRef = function (arr){
+    if (typeof arr === "object"){
+        arr.push(5);
+    }
+}
+
+let arr = [1,2,3,4];
+arrayPassByRef(arr);
+console.log(arr);
+
