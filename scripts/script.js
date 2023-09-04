@@ -299,45 +299,44 @@ let numberArr = [1,2,3,4,5];
 operatorFunc(cube,numberArr);
 console.log(numberArr);
 
+//   EVENT LOOP
+const sayWelcome = function (name){
+    console.log("Hello " + name + " welcome to the world!!");
+}
 
-// CALL BACK AND CALL BACK HELL
-// Example asynchronous function
-function asynchronousRequest(args, callback) {
-    // Throw an error if no arguments are passed
-    if (!args) {
-      return callback(new Error('Whoa! Something went wrong.'))
-    } else {
-      return setTimeout(
-        () => callback(null, {body: args + ' ' + Math.floor(Math.random() * 10)}),
-        500,
-      )
+sayWelcome("First");
+setTimeout(function(){
+    sayWelcome("Second");},
+    1000);
+sayWelcome("Third");
+
+// CALL BACK  FUNCTION WITH ERROR,RESPONSE PARAM
+const asyncFunctionExample = function (argv, callback){
+    if(typeof argv === "number"){
+        setTimeout(function(){
+            let response = {
+                body : argv + " X " + argv + " = " + Math.pow(argv,2)
+            };
+            callback(null,response);
+        },
+        Math.random()*1000);
+    }else{
+        callback(new Error("the given arguement is not a numer"),null);
     }
-  }
-  
-  // Nested asynchronous requests
-  function callbackHell() {
-    asynchronousRequest('First', function first(error, response) {
-      if (error) {
-        console.log(error)
-        return
-      }
-      console.log(response.body)
-      asynchronousRequest('Second', function second(error, response) {
-        if (error) {
-          console.log(error)
-          return
-        }
-        console.log(response.body)
-        asynchronousRequest(null, function third(error, response) {
-          if (error) {
-            console.log(error)
-            return
-          }
-          console.log(response.body)
-        })
-      })
-    })
-  }
-  
-  // Execute call back hell
-  callbackHell()
+}
+
+
+const callbackHandlerExample = function(error, response){
+    if (error){
+        console.log(error);
+        return;
+    }
+    else{
+        console.log(response.body);
+    }
+}
+arr = [1,2,3,4];
+arr.forEach(function(item){
+    asyncFunctionExample(item,callbackHandlerExample);
+});
+
