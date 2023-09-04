@@ -258,3 +258,86 @@ let arr = [1,2,3,4];
 arrayPassByRef(arr);
 console.log(arr);
 
+// FIRST CLASS and HIGHER ORDER FUNCTION
+
+function sayHello(geetfunc, name){
+    geetfunc(name);
+}
+
+const greet = function (name){
+    console.log('Hello ' + name);
+}
+
+sayHello(greet, "Vishal");
+
+// ========
+
+function func1(x){
+    return function func2(y){
+        return x*y;
+    };
+}
+
+const var1 = func1(5);
+console.log(var1(2));
+
+// ============
+
+const operatorFunc = function(operation, arr){
+    arrayLength = arr.length;
+    for(let i=0;i<arrayLength;i++){
+        arr[i] = operation(arr[i]);
+    }
+}
+
+const cube = function (num){
+    return Math.pow(num,3);
+}
+
+let numberArr = [1,2,3,4,5];
+
+operatorFunc(cube,numberArr);
+console.log(numberArr);
+
+
+// CALL BACK AND CALL BACK HELL
+// Example asynchronous function
+function asynchronousRequest(args, callback) {
+    // Throw an error if no arguments are passed
+    if (!args) {
+      return callback(new Error('Whoa! Something went wrong.'))
+    } else {
+      return setTimeout(
+        () => callback(null, {body: args + ' ' + Math.floor(Math.random() * 10)}),
+        500,
+      )
+    }
+  }
+  
+  // Nested asynchronous requests
+  function callbackHell() {
+    asynchronousRequest('First', function first(error, response) {
+      if (error) {
+        console.log(error)
+        return
+      }
+      console.log(response.body)
+      asynchronousRequest('Second', function second(error, response) {
+        if (error) {
+          console.log(error)
+          return
+        }
+        console.log(response.body)
+        asynchronousRequest(null, function third(error, response) {
+          if (error) {
+            console.log(error)
+            return
+          }
+          console.log(response.body)
+        })
+      })
+    })
+  }
+  
+  // Execute call back hell
+  callbackHell()
