@@ -392,3 +392,42 @@ function callBackHellDemo(){
 callBackHellDemo();
 
 // PROMISE JAVASCRIPT
+const myPromiseFuncCall = function (userName){
+    return new Promise(function(resolve,reject){
+        asynFuncPrintNameRandomNum(userName, function(error,response){
+            if(error){
+                reject(
+                    {
+                        description:"Some error has occured!!",
+                        eventObj: error
+                    }
+                );
+            }else{
+                resolve(
+                    {
+                        description: "Success!!!",
+                        eventObj: response
+                    }
+                )
+            }
+        }) 
+    });
+}
+
+const addPropertyLocationToObject = function(resObj){
+    return new Promise(function(resolve){
+        resObj.location = "Gurgaon";
+        resolve(resObj);
+    });
+} 
+
+myPromiseFuncCall("DEREK")
+.then(addPropertyLocationToObject)
+.then(function(result){
+    console.log(result.eventObj.body); // DEREK : 48.91740909742737
+    console.log(result.description); // Success!!!
+})
+.catch(function(error){
+    console.log(error);
+});
+
