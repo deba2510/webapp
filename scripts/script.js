@@ -307,7 +307,7 @@ const sayWelcome = function (name){
 sayWelcome("First");
 setTimeout(function(){
     sayWelcome("Second");},
-    1000);
+    500);
 sayWelcome("Third");
 
 // CALL BACK  FUNCTION WITH ERROR,RESPONSE PARAM
@@ -321,7 +321,7 @@ const asyncFunctionExample = function (argv, callback){
         },
         Math.random()*1000);
     }else{
-        callback(new Error("the given arguement is not a numer"),null);
+        callback(new Error("the given arguement is not a number"),null);
     }
 }
 
@@ -335,8 +335,60 @@ const callbackHandlerExample = function(error, response){
         console.log(response.body);
     }
 }
-arr = [1,2,3,4];
+arr = [1,2,3,4,"bean"];
 arr.forEach(function(item){
     asyncFunctionExample(item,callbackHandlerExample);
 });
 
+// CALLBACK HELL
+const asynFuncPrintNameRandomNum = function (arguement, callback){
+    if (typeof arguement === "string"){
+        setTimeout(function(){
+            callback(null,{body : arguement + " : " + Math.random()*50})
+        },
+        Math.random()*1000);
+    }
+    else{
+        callback(new Error("Entered arguement is not a string"), null);
+    }
+}
+
+function callBackHellDemo(){
+    asynFuncPrintNameRandomNum("Vishal", function(error,response){
+        if(error){
+            console.log(error);
+            return;
+        }
+        else{
+            console.log(response.body);
+            asynFuncPrintNameRandomNum("Ritam",function(error,response){
+                if(error){
+                    console.log(error);
+                    return;
+                }else{
+                    console.log(response.body);
+                    asynFuncPrintNameRandomNum("Anupam",(error,response)=>{
+                        if(error){
+                            console.log(error);
+                            return;
+                        }else{
+                            console.log(response.body);
+                            asynFuncPrintNameRandomNum("Sudip",function(error,response){
+                                if(error){
+                                    console.log(error);
+                                    return;
+                                }else{
+                                    console.log(response.body);
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        }
+    })
+}
+
+callBackHellDemo();
+
+// PROMISE JAVASCRIPT
