@@ -1,3 +1,4 @@
+"use strict";
 // SPREAD OPERATOR
 function arrayListFunction(...arrayList){
     // FOR EACH
@@ -51,6 +52,9 @@ function arrayListFunction(...arrayList){
     });
     
     // ARRAY DESTRUCTURING
+    let firstElement;
+    let secondElement;
+    let restElementList;
     [firstElement, secondElement, ...restElementList] = arrayList;
     console.log("first element = " + firstElement + ", seconde element = " + secondElement);
     console.log("REST OF THE ARRAY = " + restElementList);
@@ -68,7 +72,7 @@ function arrayListFunction(...arrayList){
 
     // NULLISH COALESCING
     let {name1:userName} = employeeDetails;
-    displayName = userName ?? "Guest";
+    let displayName = userName ?? "Guest";
     console.log("NULLISH COALESCING USER NAME = " + displayName);
 
 };
@@ -284,7 +288,7 @@ console.log(var1(2));
 // ============
 
 const operatorFunc = function(operation, arr){
-    arrayLength = arr.length;
+    let arrayLength = arr.length;
     for(let i=0;i<arrayLength;i++){
         arr[i] = operation(arr[i]);
     }
@@ -429,5 +433,22 @@ myPromiseFuncCall("DEREK")
 })
 .catch(function(error){
     console.log(error);
+});
+
+// PROMISE CHAINING EXAMPLE2 USING FETCH
+import {apiObj} from '../api-secret/secret.js';
+const url = "https://api.weatherapi.com/v1/current.json?key=" + apiObj.weatherAPI + "&q=Gurgaon&aqi=yes";
+fetch(url)
+.then(response => {
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+})
+.then(function (data) {
+    console.log(data.location);
+})
+.catch(function (error) {
+    console.error('There was a problem with the fetch operation:', error);
 });
 
