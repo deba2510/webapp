@@ -5,7 +5,6 @@ const url = "https://api.weatherapi.com/v1/current.json?key=" + apiObj.weatherAP
 
 const fetchWeatherInfo = function (apikey, location, aqi){
     const weatherApiURL = "https://api.weatherapi.com/v1/current.json?key=" + apikey + "&q=" + location + "&aqi=" + aqi;
-    console.log(weatherApiURL);
     return fetch(url,{method:"GET"});  //PROMISE
 }
 
@@ -28,7 +27,6 @@ callWeatherAPI(location,aqi)
     }
 })
 .then(function (result){
-    console.log(result);
     const loc = result.location;
     const weatherStatus = result.current;
     console.log(loc.name + 
@@ -46,3 +44,30 @@ callWeatherAPI(location,aqi)
 .catch(function(error){
     console.log(error);
 })
+
+
+// GLOBAL MARKET OPEN/CLOSE STATUS
+const alphaVantageAPIGM = function(apiKey){
+    const marketStatusURL = "https://www.alphavantage.co/query?function=MARKET_STATUS&apikey=" + apiKey;
+    return fetch(marketStatusURL);
+}
+const callGlobalMarketStatusFunc = function (){
+    const api = apiObj.alphaVantageAPI;
+    return alphaVantageAPIGM(api);
+}
+
+callGlobalMarketStatusFunc()
+.then(function(response){
+    if(!response.ok){
+        throw new Error("Some error has occured while fetching from alpha vantage");
+    }else{
+        return response.json();
+    }
+})
+.then(function(result){
+    console.log(result);
+})
+.catch(function(error){
+    console.log(error);
+});
+
