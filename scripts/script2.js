@@ -71,3 +71,31 @@ callGlobalMarketStatusFunc()
     console.log(error);
 });
 
+// CUSTOM PROMISE
+const fetchUserData = () => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const userData = { name: "Alice", age: 28 };
+        resolve(userData);
+      }, 1000);
+    });
+  };
+  
+  const updateUserEmail = (user) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        user.email = "alice@example.com";
+        resolve(user);
+      }, 1000);
+    });
+  };
+  
+  fetchUserData()
+    .then(updateUserEmail)
+    .then((user) => {
+      console.log(user); 
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  
