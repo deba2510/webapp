@@ -153,3 +153,43 @@ for (var i = 0; i < 5; i++) {
       console.log(index);
   })(i);
 }
+
+// CLOSURE IN JAVASCRIPT
+
+const clickHandlerUtil = function(){
+  let count = 0;
+  return function(){
+    count++;
+    console.log("Learn more button clicked " + count + " times!!");
+  }
+}
+const learMoreHandlerClicked = clickHandlerUtil();
+document.querySelector("#learnMore").addEventListener("click", learMoreHandlerClicked);
+
+const createNewUser = function (name, occupation){
+  let userName = name;
+  let userOccupation = occupation;
+  const getName = function(){
+    return userName;
+  }
+  const setName = function(name){
+    userName = name;
+  }
+  const getOccupation = function(){
+    return userOccupation;
+  }
+  const setOccupation = function(occupation){
+    userOccupation = occupation;
+  }
+  return {getName: getName,
+    setName: setName,
+    getOccupation: getOccupation,
+    setOccupation: setOccupation
+  }
+}
+
+const user1 = createNewUser("Walter White", "High school chemistry teacher");
+console.log(user1.getName() + " is a " + user1.getOccupation())
+user1.setName("Heisenberg");
+user1.setOccupation("Cook and an Artist");
+console.log(user1.getName() + " is a " + user1.getOccupation())
