@@ -32,7 +32,7 @@ callWeatherAPI(location,aqi)
     console.log(loc.name + 
         " located in " + 
         loc.country + 
-        "having LAT = " +
+        " having LAT = " +
         loc.lat +
         ", LON = " +
         loc.lon + 
@@ -114,3 +114,16 @@ const applyfunctionGreeting = function (greet, age, location){
 const person2 = {name:"Ravichandran"};
 applyfunctionGreeting.apply(person2, ["Hola", 33, "Karnataka"]);
 
+
+// BIND FUNCTION
+function greet(greetStr, punc) {
+  return `${greetStr}, ${this.fName} ${this.lName}${punc}`;
+}
+
+const person3 = {
+  fName: 'Bruce',
+  lName: 'Wayne'
+};
+
+const greetJohn = greet.bind(person3, 'HI'); 
+console.log(greetJohn('!!!! '));
