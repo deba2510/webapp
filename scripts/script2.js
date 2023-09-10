@@ -73,29 +73,44 @@ callGlobalMarketStatusFunc()
 
 // CUSTOM PROMISE
 const fetchUserData = () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const userData = { name: "Alice", age: 28 };
-        resolve(userData);
-      }, 1000);
-    });
-  };
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const userData = { name: "Alice", age: 28 };
+      resolve(userData);
+    }, 1000);
+  });
+};
   
-  const updateUserEmail = (user) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        user.email = "alice@example.com";
-        resolve(user);
-      }, 1000);
-    });
-  };
+const updateUserEmail = (user) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      user.email = "alice@example.com";
+      resolve(user);
+    }, 1000);
+  });
+};
   
-  fetchUserData()
-    .then(updateUserEmail)
-    .then((user) => {
-      console.log(user); 
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  
+fetchUserData()
+.then(updateUserEmail)
+.then((user) => {
+  console.log(user); 
+})
+.catch((error) => {
+  console.error(error);
+});
+
+// call function
+const callFunctionGreeting = function (greetString, userAge, userLocation){
+  console.log(greetString + "!, " + this.name + ", you are " + userAge + " year old and you live in " + userLocation);
+}
+const person = {name:"Steve"};
+callFunctionGreeting.call(person, "Hello", 23,"Varanasi");
+
+// APPLY FUNCTION
+const applyfunctionGreeting = function (greet, age, location){
+  console.log(greet + "!, " + this.name + ", you are " + age + " year old and you live in " + location)
+}
+
+const person2 = {name:"Ravichandran"};
+applyfunctionGreeting.apply(person2, ["Hola", 33, "Karnataka"]);
+
