@@ -103,16 +103,15 @@ fetchUserData()
 const callFunctionGreeting = function (greetString, userAge, userLocation){
   console.log(greetString + "!, " + this.name + ", you are " + userAge + " year old and you live in " + userLocation);
 }
-const person = {name:"Steve"};
-callFunctionGreeting.call(person, "Hello", 23,"Varanasi");
+
+callFunctionGreeting.call({name:"Steve"}, "Hello", 23,"Varanasi");
 
 // APPLY FUNCTION
 const applyfunctionGreeting = function (greet, age, location){
   console.log(greet + "!, " + this.name + ", you are " + age + " year old and you live in " + location)
 }
 
-const person2 = {name:"Ravichandran"};
-applyfunctionGreeting.apply(person2, ["Hola", 33, "Karnataka"]);
+applyfunctionGreeting.apply({name:"Ravichandran"}, ["Hola", 33, "Karnataka"]);
 
 
 // BIND FUNCTION
@@ -120,10 +119,37 @@ function greet(greetStr, punc) {
   return `${greetStr}, ${this.fName} ${this.lName}${punc}`;
 }
 
-const person3 = {
+
+const greetJohn = greet.bind({
   fName: 'Bruce',
   lName: 'Wayne'
-};
-
-const greetJohn = greet.bind(person3, 'HI'); 
+}, 'HI'); 
 console.log(greetJohn('!!!! '));
+
+// Immediately Invoked Function Expressions (IIFE)
+const counter = (
+  function(){
+    let count = 0;
+    return {
+      getcount : function(){
+        return count;
+      },
+      increment : function(){
+        count++;
+      }
+    };
+  })();
+
+console.log("Current COUNT VALUE IS = " + counter.getcount());
+counter.increment();
+console.log("Current COUNT VALUE IS = " + counter.getcount());
+counter.increment();
+counter.increment();
+console.log("Current COUNT VALUE IS = " + counter.getcount());
+
+// IIFE with arguement
+for (var i = 0; i < 5; i++) {
+  (function (index) {
+      console.log(index);
+  })(i);
+}
