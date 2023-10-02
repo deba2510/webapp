@@ -51,7 +51,7 @@ fetchGitHubUserData(apiObj.userName);
 
 
 // CONSTRUCTOR FUNCTION AND NEW OPERATOR
-const Employee = function (name, empID, yob){
+function Employee (name, empID, yob){
     this.empName = name;
     this.empNo = empID;
     this.YOB = yob;
@@ -70,3 +70,71 @@ const martha = new Employee("Martha Karamazov", "500287", 2000);
 console.log(steve.displayEmpDetails() + " is " + steve.calculateAge() + " years old.");
 console.log(martha.displayEmpDetails() + " is " + martha.calculateAge() + " years old.");
 
+console.log(martha.__proto__); // better to use Obect.getPrototypeOf(martha)
+console.log(Employee.prototype === Object.getPrototypeOf(martha));
+
+
+//  CLASS
+class EmployeeCL{
+    constructor(userName, empID, yob){
+        this.empName = userName;
+        this.empNo = empID;
+        this.YOB = yob;
+    }  
+
+    department = "HR";
+    displayEmpDetails = function(){
+        return this.empName + ", (" + this.empNo + "), he/she works in " + this.department + " Department, and he/she ";
+    }
+}
+
+EmployeeCL.prototype.calculateAge = function(){
+    const currentDate = new Date();
+    return currentDate.getFullYear() - this.YOB;
+}
+
+const hector = new EmployeeCL("Hector Salamanca", "30089", 1957);
+setTimeout(function() {
+    hector.department = "MM";
+    console.log(hector.displayEmpDetails() + " is " + hector.calculateAge() + " years old.");
+}, 1000);
+
+
+// GETTER AND SETTER
+
+class Student{
+    constructor (firstName, lastName){
+        this._firstName = firstName;
+        this._lastName = lastName;
+    }
+
+    get firstName(){
+        return this._firstName;
+    }
+
+    get lastName(){
+        return this._lastName;
+    }
+
+    set firstName(fName){
+        if(typeof fName === "string"){
+            this._firstName = fName;
+        }else{
+            throw new Error("Invalid input given as FIRST NAME");
+        }
+    }
+
+    set lastName(lName){
+        if(typeof lName === "string"){
+            this._lastName = lName;
+        }else{
+            throw new Error("Invalid input given for LAST NAME");
+        }
+    }
+}
+
+
+const jessy = new Student("Jessy","Rajeshwari");
+console.log(jessy.firstName + " " + jessy.lastName);
+jessy.lastName = "Pinkman";
+console.log(jessy.firstName + " " + jessy.lastName);
