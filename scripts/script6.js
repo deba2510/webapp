@@ -43,8 +43,8 @@ const extractIPInfo = function(data){
     .then(extractLocationInfo)
 }
 
-const getMyIPAddress = function(ipaddress){
-    return fetch(ipaddress)
+const getMyCountryDetails = function(){
+    return fetch(urlGetPublicIP)
     .then(responseFromFetch)
     .then(extractIPInfo)
 }
@@ -52,7 +52,24 @@ const getMyIPAddress = function(ipaddress){
 
 const urlGetPublicIP = "https://api.ipify.org/?format=json";
 
-getMyIPAddress(urlGetPublicIP)
-.catch(function(error){
-    console.log(error);
-});
+// getMyCountryDetails()
+// .catch(function(error){
+//     console.log(error);
+// });
+
+const getMyCountryFromIP = async function(){
+    const dataMyIPInfo = await (await fetch(urlGetPublicIP)).json();
+    
+    const urlGetLocationInfo = `http://ip-api.com/json/${dataMyIPInfo.ip}`;
+    const dataMyLocationInfo = await (await fetch(urlGetLocationInfo)).json();
+
+    const urlGetCountryName = `https://api.geocodify.com/v2/reverse?api_key=${geoCodApiKey}&lat=${dataMyLocationInfo.lat}&lng=${dataMyLocationInfo.lon}`;
+    const dataCountryName = await (await fetch(urlGetCountryName)).json();
+
+    const country = dataCountryName.response.features[0].properties.country
+    const urlGetCountryDetails = `https://restcountries.com/v3.1/name/${country}`;
+    const dataCountryDetails = await (await fetch(urlGetCountryDetails)).json();
+    console.log(dataCountryDetails[0])
+}
+
+getMyCountryFromIP();
