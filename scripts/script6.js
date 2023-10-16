@@ -69,7 +69,16 @@ const getMyCountryFromIP = async function(){
     const country = dataCountryName.response.features[0].properties.country
     const urlGetCountryDetails = `https://restcountries.com/v3.1/name/${country}`;
     const dataCountryDetails = await (await fetch(urlGetCountryDetails)).json();
-    console.log(dataCountryDetails[0])
-}
+    return dataCountryDetails[0];
+};
 
-getMyCountryFromIP();
+
+(async function (){ 
+    try{
+        const data = await getMyCountryFromIP();
+        console.log(data);
+    } catch(error){
+        console.log(error);
+    }
+    console.log("this is a mandatory comment")
+})();
